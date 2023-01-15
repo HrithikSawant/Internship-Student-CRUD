@@ -51,5 +51,3 @@ Please keep in mind that it is important to keep your password secure and never 
 
 - Unit tests for the code
 - DB configuration as an environment variable instead of hardcoded in the code.
-
-all above written i need to explain it in 2 minute video by giving introduction and running application and demo it can you write a speed script for me
