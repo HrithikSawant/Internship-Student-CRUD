@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "29805afc-891c-4ff5-aa40-d3b45717a90e",
+		"name": "Student CRUD API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16942636"
+	},
+	"item": [
+		{
+			"name": "Create Student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Ruby\",\n    \"dob\":\"1985-03-13\",\n    \"gender\":\"FEMALE\",\n    \"email\":\"ruby@gmail.com\",\n    \"address\":\"USA,California\"\n}\n\n\n//  {\n//         \"name\": \"Hrithik Sawant\",\n//         \"dob\": \"1980-12-12T18:30:00.000+00:00\",\n//         \"gender\": \"MALE\",\n//         \"address\": \"Mumbai\",\n//         \"createdAt\": \"2022-05-03T18:36:55.402683\",\n//         \"updatedAt\": \"2022-05-03T18:36:55.402714\"\n// },\n//     {\n//         \"name\": \"JOHN\",\n//         \"dob\": \"1980-12-12T18:30:00.000+00:00\",\n//         \"gender\": \"MALE\",\n//         \"address\": \"Mumbai\",\n//         \"createdAt\": \"2022-05-03T18:39:10.217888\",\n//         \"updatedAt\": \"2022-05-03T18:39:10.217906\"\n//     }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchALL STUDENT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch STUDENT BY ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Student",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Hrithik Sawant\",\n        \"dob\": \"1980-12-13\",\n        \"gender\": \"MALE\",\n        \"address\": \"Mumbai\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student By ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students/112",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"112"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
