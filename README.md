@@ -1,53 +1,37 @@
-# Building a REST API with Spring Boot and Java
+# Containerizing The App
 
 ## Overview
-This project is a basic REST API that can perform CRUD (create, read, update and delete) operations on a resource.
-
-## API Endpoints
-- **Create student:** POST [http://localhost:8080/api/v1/students](http://localhost:8080/api/v1/students)
-- **Get all students:** GET [http://localhost:8080/api/v1/students](http://localhost:8080/api/v1/students)
-    - Note: The students are sorted by their alphabetical names in ascending order.
+In this guide, we will be containerizing the existing REST API developed in [Level 0](https://github.com/HrithikSawant/Internship-Student-CRUD/tree/level-0) using Docker. Containerizing the app will ensure that anyone who has Docker installed can easily set up and run the app, eliminating the "it works on my machine" syndrome.
 
 ## Prerequisites
-- Java 8 or higher
-- Maven
-- PostgreSQL
-- Make
+- Docker
+- Docker Compose
 
-## DB Schema
-- The Student entity has the following fields: `id`, `name`, `date of birth`, `gender`, `email id` (unique constraint), `address`, `created_at`, and `updated_at`.
+## Building and Running the app
 
-## Setting the username and password
-The application requires a username and password to connect to the database. Follow these steps to set them:
-1. Open the application.properties file in the root of the project.
-2. Replace "YOUR_USERNAME" with your desired username and "YOUR_PASSWORD" with your desired password for the database.
-3. Save the file and you're done!
-Please keep in mind that it is important to keep your password secure and never share it with anyone.
+### Step 1: Only containerize the app
+- Create a Dockerfile with instructions to build the image and run the app.
+- Compile the code inside the container.
+- Do not containerize the PostgreSQL database. Keep it running on the local machine.
+- Make any necessary modifications to the code to support running inside the container, such as removing hard-coded PostgreSQL URLs.
+- Test building the image with the `docker build` command, tagging the image with the `docker tag` command, and running the image with the `docker run` command.
+- Document all commands in the README and make them executable as part of a Makefile.
+- Record a demo of the app running inside the container to demonstrate that the existing functionality still works.
+- Commit and push the code changes to the GitHub repository.
 
+### Step 2: Containerize the App and Database
 
-## Building and Running
-- Clone the repository
-- Run `make build` to build the project
-- Run the project with `make run`
+- Use **docker-compose** to run the app and database containers together, eliminating the need for a new team member to install PostgreSQL on their local machine.
+- Create a basic `docker-compose.yaml` file to specify the requirements for both the app and database containers.
+- At this point, the `docker-compose.yaml` should contain a hard-coded reference to the app image built in step 1.
+- The `docker-compose.yaml` should use the same version of PostgreSQL that runs on your machine.
+- Add DB migrations as a docker entrypoint.
+- Test building the image with the `docker build` command, tagging the image with the `docker tag` command, and running the image with the `docker-compose up` command.
+- Document all commands in the README and make them executable as part of a Makefile.
+- Record a demo of the app and database running inside Docker to demonstrate that the existing functionality still works.
+- Commit and push the code changes to the GitHub repository.
 
 ## Expectations
-
-- Create a GitHub repo with:
-    - A README explaining the project
-    - Dependency management file (e.g. pom.xml)
-    - Instructions to build and run the API locally
-    - A Postman collection for the APIs
-    - A video demo showcasing the Create and Get all Students APIs
-- The exercise should take 1-3 days to complete, depending on familiarity with the language.
-
-## Must-have
-
-- Working code that can be run with a single command
-- All code committed and pushed to the repo
-- Proper use of .gitignore to avoid committing unnecessary files
-- Code following conventions for the chosen language
-
-## Out of scope (but nice to have)
-
-- Unit tests for the code
-- DB configuration as an environment variable instead of hardcoded in the code.
+- A README explaining the project
+- At this point, any new team member should be able to clone the repo and run the `docker-compose up` command to start the app without any additional setup or configuration.
+- A video demo showcasing the above 2 steps
