@@ -33,6 +33,3 @@ VALUES
     (9, 'Matthew Rodriguez', '1998-01-01', 'MALE', 'matthewrodriguez@example.com', '159 Willow St', now(), now()),
     (10, 'Jessica Wilson', '1991-11-01', 'FEMALE', 'jessicawilson@example.com', '753 Sycamore St', now(), now());
 
-
-
-
