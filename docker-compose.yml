@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  student_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/student
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=test123
+  db:
+    image: postgres:14.1-alpine
+    container_name: postgres-container
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test123
+      - POSTGRES_DB=student
+    ports:
+      - "5434:5432"
+    volumes:
+      - my_local_data_dir:/var/lib/postgresql/data
+
+volumes:
+  my_local_data_dir:
