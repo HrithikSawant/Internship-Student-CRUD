@@ -14,6 +14,10 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @GetMapping("/by")
+    public String welcome(){
+        return "Welcome to Student";
+    }
 
     @GetMapping("/students")
     public List<Student> fetchAllStudents() {
