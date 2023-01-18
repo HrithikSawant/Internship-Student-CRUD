@@ -1,37 +1,36 @@
-# Containerizing The App
+# Faster Local Development
 
 ## Overview
-In this guide, we will be containerizing the existing REST API developed in [Level 0](https://github.com/HrithikSawant/Internship-Student-CRUD/tree/level-0) using Docker. Containerizing the app will ensure that anyone who has Docker installed can easily set up and run the app, eliminating the "it works on my machine" syndrome.
+As previously discussed in [Level 1](https://github.com/HrithikSawant/Internship-Student-CRUD/tree/level-1), you have a working application that can be run on any machine using docker. However, the current workflow for making code changes is quite tedious and time-consuming. It involves:
 
-## Prerequisites
-- Docker
-- Docker Compose
+- Making code changes in your IDE
+- Building a new container image using `docker build` and tagging it with a newer version
+- Updating the image tag in the `docker-compose.yml` file and running `docker-compose up`
+- Testing the code changes using Postman
+
+To improve this, we will mount the source code onto a container, allowing changes made in the IDE to be reflected on the container without the need to build and re-run the app. Additionally, we will also implement live debugging using IDE breakpoints.
 
 ## Building and Running the app
 
-### Step 1: Only containerize the app
-- Create a Dockerfile with instructions to build the image and run the app.
-- Compile the code inside the container.
-- Do not containerize the PostgreSQL database. Keep it running on the local machine.
-- Make any necessary modifications to the code to support running inside the container, such as removing hard-coded PostgreSQL URLs.
-- Test building the image with the `docker build` command, tagging the image with the `docker tag` command, and running the image with the `docker run` command.
-- Document all commands in the README and make them executable as part of a Makefile.
-- Record a demo of the app running inside the container to demonstrate that the existing functionality still works.
-- Commit and push the code changes to the GitHub repository.
+### Step 1: Mount Source Code Onto a Container
+- Create a new `local-docker-compose.yaml` file
+    - This file will be similar to the existing `docker-compose.yaml` file
+    - To do this, you will need to familiarize yourself with how docker volumes work and how they are implemented in `docker-compose`
+    - In summary, the source code will be mounted onto a container in read-only mode, and any changes made in the IDE will be reflected on the container.
+- Testing should now be done on the application running in the container.
 
-### Step 2: Containerize the App and Database
-
-- Use **docker-compose** to run the app and database containers together, eliminating the need for a new team member to install PostgreSQL on their local machine.
-- Create a basic `docker-compose.yaml` file to specify the requirements for both the app and database containers.
-- At this point, the `docker-compose.yaml` should contain a hard-coded reference to the app image built in step 1.
-- The `docker-compose.yaml` should use the same version of PostgreSQL that runs on your machine.
-- Add DB migrations as a docker entrypoint.
-- Test building the image with the `docker build` command, tagging the image with the `docker tag` command, and running the image with the `docker-compose up` command.
-- Document all commands in the README and make them executable as part of a Makefile.
-- Record a demo of the app and database running inside Docker to demonstrate that the existing functionality still works.
-- Commit and push the code changes to the GitHub repository.
+### Step 2: Implement More REST APIs
+- Implement the following APIs in your app:
+    - Update the details of a student
+    - Get a student
+    - Delete a student
+- Use the new `local-docker-compose.yaml` file for development
+    - Changes should be reflected on the container without the need to restart it. This means that the source code should automatically reload whenever changes are made in the IDE.
 
 ## Expectations
-- A README explaining the project
-- At this point, any new team member should be able to clone the repo and run the `docker-compose up` command to start the app without any additional setup or configuration.
-- A video demo showcasing the above 2 steps
+- At the end of this level, you will have a better understanding of how docker can not only aid in sharing a working version of the application but also speed up the local development process.
+- One of the major benefits of this technique is that it creates an isolated development environment running on a container, where changes made on the local IDE are reflected only on that specific container.
+- Record a demo of the local development process and the reflected changes in the container's logs.
+- The existing functionality should continue to work, and the source code should preferably have only additions (minimize the need to update existing code as much as possible).
+- Add and test the new endpoints to the Postman collection.
+- Don't forget to commit and push your code changes to the GitHub repository.
