@@ -131,6 +131,14 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get Welcome message",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
