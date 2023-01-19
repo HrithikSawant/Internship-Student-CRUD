@@ -7,7 +7,6 @@ As previously discussed in [Level 1](https://github.com/HrithikSawant/Internship
 - Building a new container image using `docker build` and tagging it with a newer version
 - Updating the image tag in the `docker-compose.yml` file and running `docker-compose up`
 - Testing the code changes using Postman
-
 To improve this, we will mount the source code onto a container, allowing changes made in the IDE to be reflected on the container without the need to build and re-run the app. Additionally, we will also implement live debugging using IDE breakpoints.
 
 ## Building and Running the app
