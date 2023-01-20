@@ -19,8 +19,8 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: 17
-          distribution: openjdk
+          java-version: 17.0.5
+          distribution: jdk
       - name: Build application
         run: |
           make build
