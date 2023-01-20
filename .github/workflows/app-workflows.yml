@@ -29,6 +29,7 @@ jobs:
           make docker_build
       - name: Push image student_app
         run: |
+          docker tag student_app:latest hrithiksawant/student-crud:latest
           docker push hrithiksawant/student_app:latest
       - name: List files in the repository
         run: |
