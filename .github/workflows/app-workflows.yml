@@ -26,8 +26,8 @@ jobs:
           make build
       - name: Build Docker image
         run: |
-          make app_run_docker
-      - name: Push image
+          make  make docker_build
+      - name: Push image student_app
         run: |
           docker push hrithiksawant/student_app:latest
       - name: List files in the repository
