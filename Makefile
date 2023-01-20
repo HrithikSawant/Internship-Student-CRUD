@@ -1,3 +1,7 @@
+DOCKER_HUB_USERNAME = hrithiksawant
+DOCKER_HUB_PASSWORD = ZGNrcl9wYXRfUmNCdDFZUUhvUm1IMHRYWmtOakliOVY3MFRzCg==
+DOCKER_HUB_REPOSITORY = hrithiksawant/student-crud
+
 build:
 	./mvnw clean install
 
@@ -27,3 +31,8 @@ app_down_docker:
 # To use host reload.
 app_run_live_reload:
 	docker-compose -f local-docker-compose.yml up
+
+docker_push:
+	echo ${DOCKER_HUB_PASSWORD} | base64 -d | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
+	docker tag student_app:1.0 $(DOCKER_HUB_REPOSITORY):latest
+	docker push $(DOCKER_HUB_REPOSITORY):latest
