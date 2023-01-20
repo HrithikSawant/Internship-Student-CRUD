@@ -1,7 +1,7 @@
 name: GitHub Actions CI/CD
 run-name: ${{ github.actor }} is testing Local CI Setup and Local CD. 🚀
 on:
-  push :
+  push:
     branches:
       - master
       - level-1
@@ -29,8 +29,7 @@ jobs:
           make docker_build
       - name: Push image student_app
         run: |
-          docker tag student_app:1.0 hrithiksawant/student-crud:latest
-          docker push hrithiksawant/student-crud:latest
+          make docker_push
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
