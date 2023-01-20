@@ -29,8 +29,8 @@ jobs:
           make docker_build
       - name: Push image student_app
         run: |
-          docker tag student_app:latest hrithiksawant/student-crud:latest
-          docker push hrithiksawant/student_app:latest
+          docker tag student_app:1.0 hrithiksawant/student-crud:latest
+          docker push hrithiksawant/student-crud:latest
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
