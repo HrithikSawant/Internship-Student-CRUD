@@ -8,7 +8,7 @@ on:
       - level-2
       - level-3
 jobs:
-  Build-Student-CRUD:
+  CI:
     runs-on: self-hosted
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -34,3 +34,9 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+  CD:
+    runs-on: self-hosted
+    steps:
+      - name: Deploy to Local
+        run: | 
+          make app_run_docker
