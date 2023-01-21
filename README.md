@@ -1,30 +1,60 @@
-# Local CI Setup and Local CD
+# Level 4 - Continuous Delivery
 
 ## Overview
-At the end of [Level-2](https://github.com/HrithikSawant/Internship-Student-CRUD/tree/level-2), you learned how to do faster local development by mounting the code onto a container. You now have some basic knowledge on how APIs are implemented and are familiar with how Docker can be leveraged to improve the API development.
 
-Our next step is to understand how all the steps that we performed, such as running tests, building the Docker image etc., can be automated so that developers can focus on their development.
+At the end of [Level 3](https://github.com/HrithikSawant/Internship-Student-CRUD/tree/level-3), we learned about Continuous Integration and how to implement it. We also learned how to deploy the built application to our local system. In this level, we will learn how to deploy our application on a remote system using Continuous Delivery.
 
-The automated stages of compiling the code, running tests, building artifacts, and then making those artifacts available for deployment is known as **Continuous Integration (or CI for short)**.
+## Building and Running the App
 
-## Building and Running the app
+## Vagrantfile
+```
+Vagrant.configure("2") do |config|
+  config.ssh.insert_key = false
 
-### Step 1: Local CI setup
-- Implement the following CI stages:
-  - Compile the source code
-  - Check the linting
-  - Run tests
-  - Generate a docker artifact
-  - Push the docker artifact to DockerHub
-- Define a GitHub Actions workflow, executing the above stages and commit the file.
-  - All of the commands that you have been adding to the Makefile can be used in the CI stages in an automated manner.
-- Provided that the GA runner is set up correctly, once the workflow YAML is committed, the local runner will pick up the job and execute the stages.
+  config.vm.define "vagrant_1" do |worker|
+    worker.vm.box = "ubuntu/bionic64"
+  end
 
-### Step 2: Local CD (Continuous Delivery)
-- Deploy the built docker artifacts onto your local system using the local GitHub Runner
+  config.vm.network "public_network", ip: "192.168.0.17", bridge: "wlp2s0"
 
-## Expectations
-- At the end of this level, you will have a better understanding of how to automate the build and testing process using GitHub Actions.
-- Any errors that were missed during local development will be caught by the GitHub Actions workflow and can be fixed in the next commit.
-- [**Set up a Self-Hosted GitHub Actions Runner**](https://docs.github.com/en/actions/hosting-your-own-runners/adding-self-hosted-runners)
-- Don’t forget to commit and push your code changes to GitHub repo.
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+    vb.cpus = "1"
+
+  config.vm.provision "shell", env: {"DOCKER_HUB_USERNAME" => "<DOCKER_HUB_USERNAME>", "DOCKER_HUB_PASSWORD" => "<DOCKER_HUB_PASSWORD>"}, inline: <<-SHELL
+    apt-get update 
+    apt-get install -y git lsb-release ca-certificates apt-transport-https software-properties-common curl
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    apt update
+    apt install -y docker-ce
+    mkdir -p ~/.docker/cli-plugins/
+    curl -SL https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+    chmod +x ~/.docker/cli-plugins/docker-compose
+    docker compose version
+    echo ${DOCKER_HUB_PASSWORD} | base64 -d | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
+  SHELL
+  end
+end
+```
+
+### Step 1: Setting up Vagrant
+
+* Follow the guide [Setting up HashiCorp Vagrant](https://developer.hashicorp.com/vagrant/docs/installation) to set up a Vagrant VM
+* Use the provided Vagrantfile to configure the VM
+* Replace `<DOCKER_HUB_USERNAME>` and `<DOCKER_HUB_PASSWORD>` with your Docker Hub credentials and encrypt the password using base64 encoding
+* Generate an SSH key for the Vagrant VM and add it to the GitHub Actions Secrets
+* Run `vagrant up` to start the VM
+
+### Step 2: Deploying the Application
+
+* Use the newly created Vagrant VM as the target environment for Continuous Delivery
+* Deploy the application using the built Docker artifacts and the GitHub Actions workflow
+
+## Expected Outcomes
+
+* Understand how to deploy an application on a remote system using Continuous Delivery
+* Experience with setting up and configuring a Vagrant VM for use as a production environment
+* Hands-on experience with deploying an application using built Docker artifacts and GitHub Actions workflow
+
+*Note: Make sure to follow the instructions provided in the guide "Setting up HashiCorp Vagrant" and also replace `<DOCKER_HUB_USERNAME>` and `<DOCKER_HUB_PASSWORD>` with your Docker Hub credentials and encrypt the password using base64 encoding before proceeding with `vagrant up`*
