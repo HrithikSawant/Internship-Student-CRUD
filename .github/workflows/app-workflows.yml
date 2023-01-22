@@ -1,5 +1,5 @@
 name: GitHub Actions CI/CD
-run-name: ${{ github.actor }} is  Local CI Setup and Deploy onto Vagrant. 🚀
+run-name: ${{ github.actor }} is Deploying Local CI and Local CD. 🚀
 on:
   push:
     branches:
@@ -51,7 +51,7 @@ jobs:
 
       - name: Copy docker-compose file
         run: |
-          scp -i id_rsa -P 2222 path/to/docker-compose.yml vagrant@127.0.0.1:/home/vagrant
+          scp -i id_rsa -P 2222 ~/Github/Internship-Student-CRUD/docker-compose.yml vagrant@127.0.0.1:/home/vagrant
 
       - name: Trigger deployment
         run: |
