@@ -19,7 +19,7 @@ app_connect_db_container:
 
 # To build app and db container using compose file
 docker_build:
-	docker build
+	docker-compose build
 
 # To build and run docker container for app and db
 app_run_docker:
