@@ -38,9 +38,6 @@ jobs:
   CD:
     runs-on: self-hosted
     steps:
-#      - name: Deploy to Local
-#        run: |
-#          make app_run_docker
       - name: Set up SSH key
         env:
           VAGRANT_SSH_KEY: ${{ secrets.VAGRANT_SSH_KEY }}
@@ -51,7 +48,7 @@ jobs:
 
       - name: Copy docker-compose file
         run: |
-          scp -i id_rsa -P 2222 ~/Github/Internship-Student-CRUD/docker-compose.yml vagrant@127.0.0.1:/home/vagrant
+          scp -i id_rsa -P 2222 ~/Github/Internship-Student-CRUD/docker-compose.yml ~/Github/Internship-Student-CRUD/.env vagrant@127.0.0.1:/home/vagrant
 
       - name: Trigger deployment
         run: |
