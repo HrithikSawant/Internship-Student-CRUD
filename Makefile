@@ -19,7 +19,7 @@ app_connect_db_container:
 
 # To build app and db container using compose file
 docker_build:
-	docker-compose build
+	docker build
 
 # To build and run docker container for app and db
 app_run_docker:
@@ -34,5 +34,5 @@ app_run_live_reload:
 
 docker_push:
 	echo ${DOCKER_HUB_PASSWORD} | base64 -d | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
-	docker tag student_app:1.0 $(DOCKER_HUB_REPOSITORY):latest
+	docker tag student_app:latest $(DOCKER_HUB_REPOSITORY):latest
 	docker push $(DOCKER_HUB_REPOSITORY):latest

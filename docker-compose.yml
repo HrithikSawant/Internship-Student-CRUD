@@ -1,10 +1,10 @@
 version: '3.8'
 services:
   student_app:
-    image: student_app:1.0
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: hrithiksawant/student-crud:latest
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     ports:
       - ${APPLICATION_PORT_ON_DOCKER_HOST}:${APPLICATION_PORT_ON_CONTAINER}
     depends_on:
