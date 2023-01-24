@@ -1,6 +1,7 @@
 DOCKER_HUB_USERNAME = hrithiksawant
 DOCKER_HUB_PASSWORD = ZGNrcl9wYXRfUmNCdDFZUUhvUm1IMHRYWmtOakliOVY3MFRzCg==
 DOCKER_HUB_REPOSITORY = hrithiksawant/student-crud
+COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 build:
 	./mvnw clean install
@@ -35,4 +36,6 @@ app_run_live_reload:
 docker_push:
 	echo ${DOCKER_HUB_PASSWORD} | base64 -d | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
 	docker tag student_app:latest $(DOCKER_HUB_REPOSITORY):latest
+	docker tag student_app:latest $(DOCKER_HUB_REPOSITORY):$(COMMIT_HASH)
 	docker push $(DOCKER_HUB_REPOSITORY):latest
+	docker push $(DOCKER_HUB_REPOSITORY):$(COMMIT_HASH)
