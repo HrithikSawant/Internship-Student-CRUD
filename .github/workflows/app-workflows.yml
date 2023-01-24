@@ -15,30 +15,30 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+      - name: 💾 Check out repository code
         uses: actions/checkout@v3
-      - name: Set up JDK
+      - name: ⚙️ Set up JDK
         uses: actions/setup-java@v2
         with:
           java-version: 17.0.5
           distribution: adopt
-      - name: Build application
+      - name: 🔨 Build application
         run: |
           make build
-      - name: Build Docker image
+      - name: 🐳 Build Docker image
         run: |
           make docker_build
-      - name: Push image student_app
+      - name: 📦 Push 🎓 image student_app  and git hash tag 🔖
         run: |
           make docker_push
-      - name: List files in the repository
+      - name: 📂 List files in the repository
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
   CD:
     runs-on: self-hosted
     steps:
-      - name: Set up SSH key
+      - name: 🔑 Set up SSH key
         env:
           VAGRANT_SSH_KEY: ${{ secrets.VAGRANT_SSH_KEY }}
         run: |
@@ -46,10 +46,10 @@ jobs:
           chmod 0400 id_rsa
           ssh-add id_rsa
 
-      - name: Copy docker-compose file
+      - name: 📄 Copy docker-compose file
         run: |
           scp -i id_rsa -P 2222 ~/Github/Internship-Student-CRUD/docker-compose.yml ~/Github/Internship-Student-CRUD/.env vagrant@127.0.0.1:/home/vagrant
 
-      - name: Trigger deployment
+      - name: 🚀 Trigger deployment
         run: |
           ssh -i id_rsa -p 2222 vagrant@127.0.0.1 "sudo docker compose up -d"
