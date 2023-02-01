@@ -48,7 +48,7 @@ jobs:
 
       - name: 📄 Copy docker-compose file
         run: |
-          scp -i id_rsa -P 2222 ~/Github/Internship-Student-CRUD/docker-compose.yml ~/Github/Internship-Student-CRUD/.env vagrant@127.0.0.1:/home/vagrant
+          scp -i id_rsa -P 2200 ~/Github/Internship-Student-CRUD/docker-compose.yml ~/Github/Internship-Student-CRUD/.env vagrant@127.0.0.1:/home/vagrant
 
       - name: 🚀 Trigger deployment
         run: |
