@@ -55,4 +55,3 @@ end
 * Hands-on experience with deploying an application using built Docker artifacts and GitHub Actions workflow
 
 *Note: Make sure to follow the instructions provided in the guide "Setting up HashiCorp Vagrant" and also replace `<DOCKER_HUB_USERNAME>` and `<DOCKER_HUB_PASSWORD>` with your Docker Hub credentials and encrypt the password using base64 encoding before proceeding with `vagrant up`*
-
