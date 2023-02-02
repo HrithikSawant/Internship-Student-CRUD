@@ -40,4 +40,4 @@ docker_push:
 	docker push $(DOCKER_HUB_REPOSITORY):latest
 	docker push $(DOCKER_HUB_REPOSITORY):$(COMMIT_HASH)
 
-Demo: echo "Update deployment script for demo video" 
+Demo: echo "Update deployment script for demo video"
