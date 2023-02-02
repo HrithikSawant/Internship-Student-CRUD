@@ -39,3 +39,5 @@ docker_push:
 	docker tag student_app:latest $(DOCKER_HUB_REPOSITORY):$(COMMIT_HASH)
 	docker push $(DOCKER_HUB_REPOSITORY):latest
 	docker push $(DOCKER_HUB_REPOSITORY):$(COMMIT_HASH)
+
+Demo: echo "Update deployment script for demo video"
