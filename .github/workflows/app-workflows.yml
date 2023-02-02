@@ -38,18 +38,12 @@ jobs:
   CD:
     runs-on: self-hosted
     steps:
-      - name: 🔑 Set up SSH key
+      - name: 🔑 Set up SSH key , 📄 Copy docker-compose file and  🚀 Trigger deployment
         env:
           VAGRANT_SSH_KEY: ${{ secrets.VAGRANT_SSH_KEY }}
         run: |
           echo "$VAGRANT_SSH_KEY" | tr -d '\r' > id_rsa
           chmod 0400 id_rsa
           ssh-add id_rsa
-
-      - name: 📄 Copy docker-compose file
-        run: |
           scp -i id_rsa -P 2222 ~/Github/Internship-Student-CRUD/docker-compose.yml ~/Github/Internship-Student-CRUD/.env vagrant@127.0.0.1:/home/vagrant
-
-      - name: 🚀 Trigger deployment
-        run: |
           ssh -i id_rsa -p 2222 vagrant@127.0.0.1 "sudo docker compose up -d"
